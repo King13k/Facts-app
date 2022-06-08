@@ -1,9 +1,26 @@
 import React from 'react';
+import FactCard from './FactCard';
+import './FactCard.css';
+import './FactsContainer.css';
 
 
-const FactsContainer = () => {
+const FactsContainer = (props) => {
+  const factCards = props.facts.map(fact => {
+    return (
+      <FactCard
+        type={fact.type}
+        text={fact.text}
+        found={fact.found}
+        key={fact.number}
+      />
+    )
+  })
+
+
   return (
-    <h1>Hello</h1>
+    <div className='fact-container'>
+    { factCards }
+    </div>
   )
 }
 
