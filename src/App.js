@@ -1,15 +1,16 @@
 import './App.css';
 import React, { Component } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import FactsContainer from './FactsContainer';
+import Answer from './Answer';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      facts:[]
-
+      facts:[],
+      id: 0,
     }
   }
 
@@ -41,15 +42,28 @@ class App extends Component {
          }
         })
          .then(response => response.json())
-    Promise.all([first, second, third]).then(data => this.setState({facts: data}))
+    Promise.all([first, second, third]).then(data => this.setState({facts: data, dateAnswer: data[0].year, yearAnswer: data[1].number, triviaAnswer: data[2].number}))
+    console.log('???',this.state)
   }
 
+  // checkAnswer = (id) => {
+  //   console.log(id)
+  //   this.setState({
+  //     ...this.state,
+  //     id: id
+  //   })
+  // }
 
   render(){
     return (
       <div className="App">
         <Header />
-        <FactsContainer facts={this.state.facts} />
+        <Routes>
+          <Route path='/' element={<FactsContainer facts={this.state} checkAnswer={this.checkAnswer} />} />
+          <Route path='/answer/date' element={<Answer facts={this.state} type="date"/>} />
+          <Route path='/answer/year' element={<Answer facts={this.state} type="year"/>} />
+          <Route path='/answer/trivia' element={<Answer facts={this.state} type="trivia"/>} />
+        </Routes>
       </div>
     )
   }
