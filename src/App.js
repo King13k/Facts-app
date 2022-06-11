@@ -1,25 +1,73 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Header from './Header';
+import FactsContainer from './FactsContainer';
+import Answer from './Answer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      facts:[],
+      id: 0,
+    }
+  }
+
+
+  componentDidMount() {
+    let first = fetch("https:numbersapi.p.rapidapi.com/6/21/date?fragment=true&json=true", {
+         method: 'GET',
+       	 headers: {
+       		'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com',
+       		'X-RapidAPI-Key': 'b3c95e178cmsh316f615af7ba61ep177928jsn56b0cfb1a7a4'
+       	}
+       })
+       .then(response => response.json())
+
+   let second = fetch('https:numbersapi.p.rapidapi.com/1492/year?fragment=true&json=true', {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com',
+          'X-RapidAPI-Key': 'b3c95e178cmsh316f615af7ba61ep177928jsn56b0cfb1a7a4'
+        }
+      })
+       .then(response => response.json())
+
+    let third = fetch('https:numbersapi.p.rapidapi.com/random/trivia?min=10&max=20&fragment=true&json=true', {
+          method: 'GET',
+         headers: {
+           'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com',
+           'X-RapidAPI-Key': 'b3c95e178cmsh316f615af7ba61ep177928jsn56b0cfb1a7a4'
+         }
+        })
+         .then(response => response.json())
+    Promise.all([first, second, third]).then(data => this.setState({facts: data, dateAnswer: data[0].year, yearAnswer: data[1].number, triviaAnswer: data[2].number}))
+    console.log('???',this.state)
+  }
+
+  // checkAnswer = (id) => {
+  //   console.log(id)
+  //   this.setState({
+  //     ...this.state,
+  //     id: id
+  //   })
+  // }
+
+  render(){
+    return (
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path='/' element={<FactsContainer facts={this.state} checkAnswer={this.checkAnswer} />} />
+          <Route path='/answer/date' element={<Answer facts={this.state} type="date"/>} />
+          <Route path='/answer/year' element={<Answer facts={this.state} type="year"/>} />
+          <Route path='/answer/trivia' element={<Answer facts={this.state} type="trivia"/>} />
+        </Routes>
+      </div>
+    )
+  }
 }
+
 
 export default App;
