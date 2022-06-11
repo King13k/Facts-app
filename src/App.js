@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import FactsContainer from './FactsContainer';
 import Answer from './Answer';
+import Favorite from './Favorite';
 
 class App extends Component {
   constructor() {
@@ -11,6 +12,7 @@ class App extends Component {
     this.state = {
       facts:[],
       id: 0,
+      favorites: []
     }
   }
 
@@ -43,26 +45,27 @@ class App extends Component {
         })
          .then(response => response.json())
     Promise.all([first, second, third]).then(data => this.setState({facts: data, dateAnswer: data[0].year, yearAnswer: data[1].number, triviaAnswer: data[2].number}))
-    console.log('???',this.state)
+
+    let localFavorites = JSON.parse(window.localStorage.getItem('favorites')) || []
+    this.setState({favorites: localFavorites})
   }
 
-  // checkAnswer = (id) => {
-  //   console.log(id)
-  //   this.setState({
-  //     ...this.state,
-  //     id: id
-  //   })
-  // }
+ addToFavorite = (data) => {
+   data.id = Date.now()
+    this.setState({favorites: [...this.state.favorites,data]})
+    window.localStorage.setItem('favorites', JSON.stringify(this.state.favorites))
+  }
 
   render(){
     return (
       <div className="App">
         <Header />
         <Routes>
-          <Route path='/' element={<FactsContainer facts={this.state} checkAnswer={this.checkAnswer} />} />
+          <Route path='/' element={<FactsContainer facts={this.state} addToFavorite={this.addToFavorite}/>} />
           <Route path='/answer/date' element={<Answer facts={this.state} type="date"/>} />
           <Route path='/answer/year' element={<Answer facts={this.state} type="year"/>} />
           <Route path='/answer/trivia' element={<Answer facts={this.state} type="trivia"/>} />
+          <Route path='/favorite' element={<Favorite favorites={this.state.favorites} />}/>
         </Routes>
       </div>
     )
