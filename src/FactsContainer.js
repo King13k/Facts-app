@@ -8,7 +8,6 @@ const FactsContainer = (props) => {
   const factCards = props.facts.facts.map((fact,index) => {
 
 
-
     return (
       <FactCard
         type={fact.type}
@@ -19,6 +18,7 @@ const FactsContainer = (props) => {
         key={fact.number}
         id={index}
         checkAnswer={props.checkAnswer}
+        addToFavorite={props.addToFavorite}
       />
     )
   })
