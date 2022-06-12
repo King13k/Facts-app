@@ -16,7 +16,7 @@ let factData = {
       <h1>{type}</h1>
       <p>{text}</p>
       <Link to={`/answer/${type}`}>
-      <button> Answer </button>
+      <button className='btn'> Answer </button>
       </Link>
       <button onClick={() => addToFavorite(factData)}> Favorite </button>
     </div>
