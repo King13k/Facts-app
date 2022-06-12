@@ -7,7 +7,7 @@ const Header = () => {
     <>
       <header className='header-container'> All Facts! </header>
       <Link to='/favorite'>
-      <button> Favorite Facts </button>
+      <button className='btn'> View Favorite Facts </button>
       </Link>
       <Link to='/'>
       <button>Home</button>
