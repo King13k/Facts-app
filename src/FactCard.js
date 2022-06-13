@@ -13,12 +13,12 @@ let factData = {
 
   return (
     <div className='fact-card'>
-      <h1>{type}</h1>
-      <p>{text}</p>
+      <h1 className ='fact-type'>{type}</h1>
+      <p className='fact-description'>{text}</p>
       <Link to={`/answer/${type}`}>
       <button className='btn'> Answer </button>
       </Link>
-      <button onClick={() => addToFavorite(factData)}> Favorite </button>
+      <button className="add-fav" onClick={() => addToFavorite(factData)}> Favorite </button>
     </div>
   )
 }
