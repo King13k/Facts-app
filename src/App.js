@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let first = fetch("https:numbersapi.p.rapidapi.com/6/21/date?fragment=true&json=true", {
+    let first = fetch("https://numbersapi.p.rapidapi.com/6/21/date?fragment=true&json=true", {
          method: 'GET',
        	 headers: {
        		'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com',
@@ -26,7 +26,7 @@ class App extends Component {
        })
        .then(response => response.json())
 
-   let second = fetch('https:numbersapi.p.rapidapi.com/1492/year?fragment=true&json=true', {
+   let second = fetch('https://numbersapi.p.rapidapi.com/1492/year?fragment=true&json=true', {
         method: 'GET',
         headers: {
           'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com',
@@ -35,7 +35,7 @@ class App extends Component {
       })
        .then(response => response.json())
 
-    let third = fetch('https:numbersapi.p.rapidapi.com/random/trivia?min=10&max=20&fragment=true&json=true', {
+    let third = fetch('https://numbersapi.p.rapidapi.com/random/trivia?min=10&max=20&fragment=true&json=true', {
           method: 'GET',
          headers: {
            'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com',
