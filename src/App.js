@@ -16,7 +16,6 @@ class App extends Component {
     }
   }
 
-
   componentDidMount() {
     let first = fetch("https:numbersapi.p.rapidapi.com/6/21/date?fragment=true&json=true", {
          method: 'GET',

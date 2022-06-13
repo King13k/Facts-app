@@ -3,7 +3,6 @@ import FavoriteCard from './FavoriteCard';
 
 
 const Favorite = ({ favorites }) => {
-  console.log(favorites)
   const allFavs = favorites.map(fav => {
     return (
       <FavoriteCard
